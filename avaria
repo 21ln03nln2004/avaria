@@ -1,0 +1,76 @@
+import java.awt.Event;
+
+public class main1 {
+	
+public static void main(String[] args)
+{
+  Starter a = new Starter();
+    Starter a2 = new Starter();
+    Starter a3 = new Starter();
+    a3.x1=30;
+    a2.x1=30;
+    a.x1=30;
+  
+  
+  Starter a1 = new Starter();
+  a1.addMyListener(a1);
+  
+  a2.addMyListener(a2);
+	 a3.addMyListener(a3);
+	 //a.addMyListener(a);
+	 
+	
+ 
+  a.fireMyEvent("я");
+  }
+
+}
+------------------------------------------------
+import java.awt.Event;
+
+
+public interface MyListener {
+
+	void myHappend(Event ev);
+
+}
+------------------------------------------------
+import java.awt.Event;
+import java.util.ArrayList;
+
+
+public class Starter implements MyListener {
+	
+	int x1, y1;
+	
+	  private static ArrayList<MyListener> listeners = new ArrayList<MyListener>();
+	  public static void addMyListener(MyListener listener)
+	  {
+	    listeners.add(listener);
+	  }
+
+	  protected void fireMyEvent(String message)
+	  {
+	    Event ev = new Event(this, 0, message);
+	    ev.x=x1;
+	    
+	    for(MyListener listener : listeners)
+	      listener.myHappend(ev);
+	  }
+	  
+	  
+	public void myHappend(Event ev) {
+	    if (ev.arg.toString()=="ggg")
+	    	System.out.println("не жжужи");
+	    	else 
+		System.out.println("a got it"+" "+ev.toString());
+	    
+	    if (ev.x==x1) System.out.println("Авария");
+	    System.out.println("мои координаты"+" "+x1);
+		
+		
+		
+
+	  
+	}
+}
